@@ -1,5 +1,7 @@
 import { Callout } from '@/components/Callout'
 import { QuickLink, QuickLinks } from '@/components/QuickLinks'
+import { CSSProperties } from 'react';
+import { CodeBlock } from '@/components/CodeBlock'
 
 const tags = {
   callout: {
@@ -42,6 +44,27 @@ const tags = {
       href: { type: String },
     },
   },
+  iframe: {
+    render: 'iframe',
+    attributes: {
+      src: { type: String },
+      frameborder: { type: String },
+      scrolling: { type: String },
+      style: { type: CSSProperties },
+      allow: { type: String },
+      width: { type: String },
+      height: { type: String }
+    }
+  },
+  'code-block': {
+    selfClosing: true,
+    render: CodeBlock,
+    attributes: {
+      rawUrl: { type: String },
+      language: { type: String },
+      code: { type: String }
+    }
+  }
 }
 
 export default tags
