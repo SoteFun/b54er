@@ -1,0 +1,49 @@
+name: 同步源码
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # 每6小时运行一次
+  workflow_dispatch:      # 允许手动触发
+
+permissions:
+  contents: write
+  actions: write
+  
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Configure Git
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          
+      - name: Add upstream repository
+        run: |
+          git remote add upstream ${{ vars.UPSTREAM_REPO }}
+          
+      - name: Fetch upstream
+        run: |
+          git fetch upstream
+          
+      - name: Merge upstream
+        run: |
+          git merge upstream/$(git branch --show-current) --no-edit
+          
+      - name: Remove .tool-versions file
+        run: |
+          if [ -f ".tool-versions" ]; then
+            rm .tool-versions
+            git add .tool-versions
+            git commit -m "chore: remove .tool-versions file"
+          fi
+          
+      - name: Push changes
+        run: |
+          git push origin $(git branch --show-current)
