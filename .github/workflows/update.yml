@@ -26,7 +26,7 @@ jobs:
           
       - name: Add upstream repository
         run: |
-          git remote add upstream github.com/NeuroInterface/Docs
+          git remote add upstream https://github.com/NeuroInterface/Docs.git
           
       - name: Fetch upstream
         run: |
