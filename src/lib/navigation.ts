@@ -33,4 +33,18 @@ export const navigation = [
       },
     ],
   },
+  {
+    title: 'Scira',
+    links: [
+      { title: '概览', href: '/docs/scira' },
+      {
+        title: '代码',
+        href: '/docs/scira/code',
+      },
+      {
+        title: '更新日志',
+        href: '/docs/scira/changelog',
+      },
+    ],
+  },
 ]
